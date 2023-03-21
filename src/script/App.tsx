@@ -1,7 +1,6 @@
 import React from "react";
+import { GameContainer } from "./components/GameContainer";
 
 export const App = () => {
-  console.log("aaaa");
-
-  return <div>App</div>;
+  return <GameContainer />;
 };
