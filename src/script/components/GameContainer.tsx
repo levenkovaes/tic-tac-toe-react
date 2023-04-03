@@ -48,6 +48,12 @@ export const GameContainer = () => {
     gameStatus = "Winner: " + winner;
   }
 
+  const handleStartAgain = () => {
+    setSquaresContent(["", "", "", "", "", "", "", "", ""]);
+    setStepsCount(1);
+    setTurn("×");
+  };
+
   return (
     <div className="game-container">
       <h1>Tic-Tac-Toe</h1>
@@ -56,6 +62,9 @@ export const GameContainer = () => {
         handleClick={handleClick}
       />
       <p>{gameStatus}</p>
+      <button style={{ marginTop: 20 }} onClick={handleStartAgain}>
+        Start again
+      </button>
     </div>
   );
 };
