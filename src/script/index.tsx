@@ -4,8 +4,6 @@ import { StrictMode } from "react";
 import { App } from "./App";
 import "../scss/input.scss";
 
-// ReactDOM.render(<App />, document.getElementById("root"));
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

@@ -1,24 +1,23 @@
 import React from "react";
 import { Square } from "./Square";
 import { v4 as uuidv4 } from "uuid";
-import { ISquare } from "./types";
+import { ISquareContainer } from "./types";
 
 export const SquaresContainer = ({
-  value,
-  handleClick,
+  winnerSquares,
   squaresContent,
-}: ISquare) => {
+  handleClick,
+}: ISquareContainer) => {
   let squares = [];
 
   for (let i = 0; i < 9; ++i) {
     squares.push(
       <Square
-        squaresContent={squaresContent}
+        accent={winnerSquares?.includes(i) ? "accent" : ""}
         key={uuidv4()}
         value={squaresContent[i]}
-        handleClick={() => {
-          //@ts-ignore
-          handleClick(i);
+        handleClick={(e) => {
+          handleClick(e, i);
         }}
       />
     );

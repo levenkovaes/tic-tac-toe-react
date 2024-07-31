@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import { SquaresContainer } from "./SquaresContainer";
 import { calculateWinner } from "./utils";
 
@@ -18,16 +18,21 @@ export const GameContainer = () => {
 
   const [turn, setTurn] = useState("×");
 
-  let gameStatus = `Player: ${turn}`;
+  let gameStatus: JSX.Element = (
+    <>
+      Player: <span className="turn">{turn}</span>
+    </>
+  );
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (i) => {
+  const handleClick: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    i: number
+  ) => void = (e, i) => {
     setStepsCount((sc) => sc + 1);
 
     setSquaresContent((sc) => {
-      const clone = [...sc];
-      //@ts-ignore
       if (calculateWinner(squaresContent)) {
-        return clone;
+        return sc;
       }
 
       if (stepsCount % 2 === 1) {
@@ -36,16 +41,18 @@ export const GameContainer = () => {
         setTurn("×");
       }
 
-      //@ts-ignore
-      clone[i] = turn;
-      return clone;
+      return sc.map((content, index) => (index === i ? turn : content));
     });
   };
 
   const winner = calculateWinner(squaresContent);
 
   if (winner) {
-    gameStatus = "Winner: " + winner;
+    gameStatus = (
+      <span className="accent">
+        Winner: <span className="turn">{winner.winner}</span>
+      </span>
+    );
   }
 
   const handleStartAgain = () => {
@@ -58,11 +65,12 @@ export const GameContainer = () => {
     <div className="game-container">
       <h1>Tic-Tac-Toe</h1>
       <SquaresContainer
+        winnerSquares={winner?.squares}
         squaresContent={squaresContent}
         handleClick={handleClick}
       />
-      <p>{gameStatus}</p>
-      <button style={{ marginTop: 20 }} onClick={handleStartAgain}>
+      <p className="game-status">{gameStatus}</p>
+      <button className="start-btn" onClick={handleStartAgain}>
         Start again
       </button>
     </div>
