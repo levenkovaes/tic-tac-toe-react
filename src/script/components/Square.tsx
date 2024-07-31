@@ -1,9 +1,13 @@
 import { ISquare } from "./types";
 
-export function Square({ value, handleClick, squaresContent }: ISquare) {
+export const Square = ({ accent, value, handleClick }: ISquare) => {
   return (
-    <button disabled={!!value} className="square" onClick={handleClick}>
+    <button
+      disabled={!!value}
+      className={`square ${accent}`}
+      onClick={handleClick}
+    >
       {value}
     </button>
   );
-}
+};
